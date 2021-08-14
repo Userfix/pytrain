@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from selenium.webdriver.support.select import Select
 
 
@@ -10,6 +11,12 @@ class ContactHelper:
         wd = self.app.wd
         # open contact page and init creation
         wd.find_element_by_link_text("add new").click()
+        self.changes(contact)
+        wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+
+    def changes(self, contact):
+        wd = self.app.wd
+        # open contact page and init creation
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(contact.f_name)
@@ -36,26 +43,24 @@ class ContactHelper:
         wd.find_element_by_name("email").send_keys(contact.email)
         wd.find_element_by_name("bday").click()
         Select(wd.find_element_by_name("bday")).select_by_visible_text(contact.bday)
-        wd.find_element_by_xpath("//option[@value='3']").click()
         wd.find_element_by_name("bmonth").click()
         Select(wd.find_element_by_name("bmonth")).select_by_visible_text(contact.bmonth)
-        wd.find_element_by_xpath("//option[@value='March']").click()
         wd.find_element_by_name("byear").click()
         wd.find_element_by_name("byear").clear()
         wd.find_element_by_name("byear").send_keys(contact.byear)
-        wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
 
-    # def email(self):
-    #     return "test@test.com"
-    #
-    # def phone(self):
-    #     return "+74991234567"
-    #
-    # def bday(self):
-    #     return "11"
-    #
-    # def bmonth(self):
-    #     return "March"
-    #
-    # def byear(self):
-    #     return "1950"
+    def edit_first_contact(self, contact):
+        wd = self.app.wd
+        # open contact page and init creation
+        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        self.changes(contact)
+        wd.find_element_by_name("update").click()
+
+    def delete_first_contact(self):
+        wd = self.app.wd
+        # select first contact
+        wd.find_element_by_name("selected[]").click()
+        # submit deletion
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to_alert().accept()
+        wd.find_element_by_link_text("home").click()
