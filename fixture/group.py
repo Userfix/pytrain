@@ -19,9 +19,9 @@ class GroupHelper:
         self.open_groups_page()
         # init group creation
         wd.find_element_by_name("new").click()
-        self.changes(group)
+        self.fill_group_form(group)
 
-    def changes(self, group):
+    def fill_group_form(self, group):
         wd = self.app.wd
         self.change_field_value("group_name", group.name)
         self.change_field_value("group_header", group.header)
@@ -37,23 +37,14 @@ class GroupHelper:
             wd.find_element_by_name(field_name).clear()
             wd.find_element_by_name(field_name).send_keys(text)
 
-    def edit_first_group(self, group):
-        # my modify
-        wd = self.app.wd
-        self.open_groups_page()
-        self.select_first_group()
-        wd.find_element_by_name("edit").click()
-        self.changes(group)
-
     def modify_first_group(self, new_group_data):
-        # course modify
         wd = self.app.wd
         self.open_groups_page()
         self.select_first_group()
         # open modification form
         wd.find_element_by_name("edit").click()
         # fill group form
-        self.changes(new_group_data)
+        self.fill_group_form(new_group_data)
 
     def delete_first_group(self):
         wd = self.app.wd
