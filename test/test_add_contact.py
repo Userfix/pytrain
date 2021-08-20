@@ -10,5 +10,5 @@ def test_add_contact(app):
                                bday="3", bmonth="March", byear="2000"))
 
 
-def test_add_contact(app):
+def test_add_contact_name_only(app):
     app.contact.create(Contact(firstname="NewFirstName 1"))

@@ -2,11 +2,6 @@
 from model.contact import Contact
 
 
-def create_contact_if_blank(app):
-    if app.contact.count() == 0:
-        app.contact.create(Contact(firstname="NewFirstName 1"))
-
-
 def test_modify_contact(app):
     create_contact_if_blank(app)
     app.contact.modify_first_contact(Contact(firstname="123Updated FirstName", middlename="Updated MiddleName",
@@ -18,4 +13,9 @@ def test_modify_contact(app):
 
 def test_modify_contact_name_only(app):
     create_contact_if_blank(app)
-    app.contact.modify_first_contact(Contact(firstname="Only Updated FirstName"))
+    app.contact.modify_first_contact(Contact(firstname="Only Updated FirstName", lastname=""))
+
+
+def create_contact_if_blank(app):
+    if app.contact.count() == 0:
+        app.contact.create(Contact(firstname="NewFirstName 1"))
