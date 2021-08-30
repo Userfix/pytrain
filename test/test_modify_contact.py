@@ -5,15 +5,15 @@ from model.contact import Contact
 def test_modify_contact(app):
     create_contact_if_blank(app)
     old_contacts = app.contact.get_contact_list()
-    contact = Contact(firstname="123Updated FirstName", middlename="Updated MiddleName",
+    contact = Contact(firstname="Updated FirstName", middlename="Updated MiddleName",
                       lastname="Updated LastName", nickname="UpdNickname",
                       title="ABC", company="Solar", address="Gogolya 2",
                       phone="+7499000000", email="quest@test.com",
                       bday="11", bmonth="July", byear="1862")
     contact.id = old_contacts[0].id
     app.contact.modify_first_contact(contact)
+    assert len(old_contacts) == app.contact.count()
     new_contacts = app.contact.get_contact_list()
-    assert len(old_contacts) == len(new_contacts)
     old_contacts[0] = contact
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 
