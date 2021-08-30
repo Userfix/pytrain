@@ -53,19 +53,25 @@ class ContactHelper:
             Select(wd.find_element_by_name(field_name)).select_by_visible_text(text)
 
     def modify_first_contact(self, new_contact_date):
+        self.modify_contact_by_index(0)
+
+    def modify_contact_by_index(self, index, new_contact_date):
         wd = self.app.wd
         self.open_contact_page()
         # select first contact
-        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
         self.fill_group_form(new_contact_date)
         wd.find_element_by_name("update").click()
         self.contact_cache = None
 
     def delete_first_contact(self):
+        self.delete_contact_by_index(0)
+
+    def delete_contact_by_index(self, index):
         wd = self.app.wd
         self.open_contact_page()
         # select first contact
-        wd.find_element_by_name("selected[]").click()
+        wd.find_elements_by_name("selected[]")[index].click()
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
