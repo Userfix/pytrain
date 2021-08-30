@@ -130,3 +130,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/geom2d/
+/geo.py
