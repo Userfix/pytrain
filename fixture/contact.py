@@ -33,7 +33,8 @@ class ContactHelper:
         self.change_field_value("title", contact.title)
         self.change_field_value("company", contact.company)
         self.change_field_value("address", contact.address)
-        self.change_field_value("home", contact.phone)
+        self.change_field_value("home", contact.homephone)
+        self.change_field_value("mobile", contact.mobilephone)
         self.change_field_value("email", contact.email)
         self.change_select_value("bday", contact.bday)
         self.change_select_value("bmonth", contact.bmonth)
@@ -91,9 +92,10 @@ class ContactHelper:
             wd = self.app.wd
             self.open_contact_page()
             self.contact_cache = []
-            for element in wd.find_elements_by_css_selector("#maintable tbody tr[name='entry']"):
-                fname = element.find_element_by_css_selector("td:nth-child(3)").text
-                lname = element.find_element_by_css_selector("td:nth-child(2)").text
-                id = element.find_element_by_name("selected[]").get_attribute("value")
-                self.contact_cache.append(Contact(firstname=fname, lastname=lname, id=id))
+            for row in wd.find_elements_by_name("entry"):
+                cells = row.find_elements_by_tag_name("td")
+                firstname = cells[2].text
+                lastname = cells[1].text
+                id = cells[0].find_element_by_name("selected[]").get_attribute("value")
+                self.contact_cache.append(Contact(firstname=firstname, lastname=lastname, id=id))
         return self.contact_cache
