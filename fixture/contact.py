@@ -133,12 +133,12 @@ class ContactHelper:
         homephone = wd.find_element_by_name("home").get_attribute("value")
         mobilephone = wd.find_element_by_name("mobile").get_attribute("value")
         workphone = wd.find_element_by_name("work").get_attribute("value")
-        faxphone = wd.find_element_by_name("fax").get_attribute("value")
+        secondaryphone = wd.find_element_by_name("phone2").get_attribute("value")
         email1 = wd.find_element_by_name("email").get_attribute("value")
         email2 = wd.find_element_by_name("email2").get_attribute("value")
         email3 = wd.find_element_by_name("email3").get_attribute("value")
         return Contact(firstname=firstname, lastname=lastname, middlename=middlename, id=id, address=address,
-                       homephone=homephone, mobilephone=mobilephone, workphone=workphone, faxphone=faxphone,
+                       homephone=homephone, mobilephone=mobilephone, workphone=workphone, secondaryphone=secondaryphone,
                        email1=email1, email2=email2, email3=email3)
 
     def get_contact_from_view_page(self, index):
@@ -154,11 +154,11 @@ class ContactHelper:
         homephone = re.search("H: (.*)", text).group(1)
         mobilephone = re.search("M: (.*)", text).group(1)
         workphone = re.search("W: (.*)", text).group(1)
-        faxphone = re.search("F: (.*)", text).group(1)
+        secondaryphone = re.search("P: (.*)", text).group(1)
         all_emails = re.findall("(.*@.*)", text)
         email1 = all_emails[0]
         email2 = all_emails[1]
         email3 = all_emails[2]
         return Contact(firstname=firstname, middlename=middlename, lastname=lastname, address=address,
-                       homephone=homephone, mobilephone=mobilephone, workphone=workphone, faxphone=faxphone,
+                       homephone=homephone, mobilephone=mobilephone, workphone=workphone, secondaryphone=secondaryphone,
                        email1=email1, email2=email2, email3=email3)
