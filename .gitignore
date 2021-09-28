@@ -132,3 +132,4 @@ dmypy.json
 .pyre/
 /geom2d/
 /qwe_train/
+/data/*.json
